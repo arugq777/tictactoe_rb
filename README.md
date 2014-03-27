@@ -1,5 +1,7 @@
-Tic Tac Toe game, written in Ruby.
+##About
+This is Tic Tac Toe game, somewhat clumsily written in Ruby, after banging my head against a couple different attempts at writing a minimax algorithm.
 
-It's currently rather basic; the computer player just picks a space at random.
+To play, enter "ruby play_tictactoe.rb" in a command line
 
-TODO: make CPU player less dumb.
+##To-Do
+Refactor. Possibly make a Sinatra version (eventually)

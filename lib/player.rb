@@ -11,16 +11,7 @@ class Player
   # def pick_name
   #   print "Enter name: "
   #   n = gets.chomp
-  #   while n.empty?
-  #     print "Name was blank. default to 'Player #{@number}'? Y/N:"
-  #     yn = gets[0].chomp.upcase
-  #     if yn == 'Y' || yn.empty?
-  #       n = "Player " + @number.to_s
-  #     else
-  #       print "Fine, pick another name: "
-  #       n = gets.chomp
-  #     end
-  #   end
+  #   puts "Name was blank. Default to 'Player #{@number}'." if n.empty?
   #   return n
   # end
 
@@ -37,14 +28,18 @@ class Player
     yn = gets[0].chomp.upcase
     if yn == 'Y'
       puts "#{@name}'s humanity is noted for future reference."
-      @is_human = true
+      return true
     elsif yn == 'N'
       puts "#{@name} is a cold, heartless machine."
-      @is_human = false
     else
       puts "Invalid response. Defaulting to Not Human."
-      @is_human = false
     end
+
+    # if @number == 1
+    #   return false
+    # else
+    #   return true
+    # end
   end
 
   def is_human?
@@ -52,8 +47,8 @@ class Player
   end
 
   def is_about_to_win?(board)
-    board.lines.each_value do |line|
-      return true if line.count(@marker) == 2
+    board.marked_lines.each_value do |line|
+      return true if line.count(@marker) == 2 && line.count == 2
     end
     return false
   end
