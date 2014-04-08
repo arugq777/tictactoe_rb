@@ -1,21 +1,19 @@
 require './lib/board'
 require './lib/player'
-
-Node = Struct.new(:move, :score, :player)
+require './lib/minimax'
 
 class TicTacToe
-  attr_accessor :players, :current_player, :board, :turn_count, #:move_history
-                :choice
+  include Minimax
+  attr_accessor :players, :current_player, :board, :turn_count #, :move_history
   def initialize
     @turn_count = 0
     @players = []
     @board = Board.new
-    2.times { @players << player_setup}
+    2.times { @players << player_setup }
   end
 
   def player_setup
-    p = Player.new(@players.count+1)
-    return p
+    Player.new(@players.count+1)
   end
 
   def coin_toss
@@ -27,7 +25,7 @@ class TicTacToe
     space = nil
     if player.is_human?
       space = manually_pick_space
-    # else #if player.is_dumb_cpu?
+    # elsif player.is_dumb_cpu?
     #   space = randomly_pick_space
     else
       space = automatically_pick_space
@@ -58,25 +56,24 @@ class TicTacToe
     #   return space
     # else
       space = find_best_move(player, @board)
-      # puts "@board.marked_lines #{@board.marked_lines}"
       return space
     # end
   end
 
   # def find_obvious_move
-    # if @turn_count == 0
-    #   return 1
-    # elsif @turn_count == 1
-    #   if @board.possible_moves.include?(5)
-    #     return 5
-    #   else
-    #     return 1
-    #   end
-    # elsif someone_is_about_to_win?
-    #   return @board.space_to_complete_line
-    # else
-    #   return nil
-    # end
+  #   if @turn_count == 0
+  #     return 1
+  #   elsif @turn_count == 1
+  #     if @board.possible_moves.include?(5)
+  #       return 5
+  #     else
+  #       return 1
+  #     end
+  #   # elsif someone_is_about_to_win?
+  #   #   return @board.space_to_complete_line
+  #   else
+  #     return nil
+  #   end
   # end
 
   def someone_is_about_to_win?
@@ -84,91 +81,6 @@ class TicTacToe
       return true if p.is_about_to_win?(@board)
     end
     return false
-  end
-
-  def alternate(player)
-    # puts "in #alternate #{player}"
-    return [:X,:O].find {|marker| marker != player}
-  end
-
-  def find_best_move(player, board)
-    scores = []
-    board.possible_moves.each do |move|
-      board_cp = board.copy
-      board_cp.mark_space(move, player)
-      score = 0
-      if player == :X
-        score = min_move(board_cp, alternate(player))
-      else
-        score = max_move(board_cp, alternate(player))
-      end
-      scores << Node.new(move,score,player)
-    end
-    best_move = nil
-    if player == :X
-      best_score = -1
-        scores.each do |node|
-          if node.score > best_score
-            best_move = node.move
-          end
-        end
-    else
-      best_score = 1
-        scores.each do |node|
-          if node.score < best_score
-            best_move = node.move
-          end
-        end
-    end
-    return best_move
-  end
-
-  def min_move(board, player)
-    if board.has_winner? || board.is_full?
-      s = score(board, :X)
-      #puts "min score #{s}"
-      return s
-    end
-    best_score = 1
-    board.possible_moves.each do |move|
-      board_cp = board.copy
-      board_cp.mark_space(move, player)
-      score = max_move(board_cp, alternate(player))
-      if score < best_score
-        best_score = score
-      end
-    end
-    return best_score
-  end
-
-  def max_move(board, player)
-    if board.has_winner? || board.is_full?
-      s = score(board, :X)
-      #puts "max score #{s}"
-      return s
-    end
-    best_score = -1
-    board.possible_moves.each do |move|
-      board_cp = board.copy
-      board_cp.mark_space(move, player)
-      score = min_move(board_cp, alternate(player))
-      if score > best_score
-        best_score = score
-      end
-    end
-    return best_score
-  end
-
-  def score(board, player)
-    if board.has_winner?
-      if board.winner[0] == player
-        return 1
-      else
-        return -1
-      end
-    else
-      return 0
-    end
   end
 
   def play

@@ -5,38 +5,38 @@ class Board
                   :diagonal_slash, :diagonal_backslash ]
 
   def initialize params={}
+    @markers = [:X, :O]
+    @lines = setup_lines
     @space = params[:space].nil? ? setup_spaces : params[:space]
     @possible_moves = params[:possible_moves].nil? ? setup_spaces : params[:possible_moves]
     @marked_lines = params[:marked_lines].nil? ? setup_marked_lines : params[:marked_lines]
     @board = []
     @winner = []
     @possible_wins = []
-    @markers = [:X, :O]
-    @lines = setup_lines
   end
 
   def setup_spaces
-    spaces = []
-    (1..9).each do |n|
-      spaces << n
-    end
-    return spaces
+    return (1..9).to_a
   end
 
   def setup_marked_lines
     ml = {}
-    @@line_names.each do |line|
-      ml[line] = []
-    end
+    @@line_names.each { |line| ml[line] = [] }
     return ml
   end
 
+  # def setup_spaces_marked
+  #   sm = {}
+  #   @markers.each do |marker|
+  #     sm[marker] = []
+  #   end
+  #   return sm
+  # end
+
   def dup_marked_lines
     dup = {}
-    @@line_names.each do |line|
-      dup[line] = @marked_lines[line].dup
-    end
-    dup
+    @@line_names.each { |line| dup[line] = @marked_lines[line].dup }
+    return dup
   end
 
   def setup_lines
@@ -84,7 +84,8 @@ class Board
   end
 
   def mark_space(number, marker)
-    @space[number-1] = marker 
+    @space[number-1] = marker
+    # @spaces_marked[marker] << number
     update_lines(number, marker)
     update_possible_moves(number)
   end
@@ -104,8 +105,6 @@ class Board
   end
 
   def is_full?
-    # marked = @space.select {|m| m.is_a?(Symbol) }
-    # marked.count == @space.length ? true : false
     @possible_moves.empty?
   end
 

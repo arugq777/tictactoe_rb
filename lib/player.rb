@@ -34,12 +34,6 @@ class Player
     else
       puts "Invalid response. Defaulting to Not Human."
     end
-
-    # if @number == 1
-    #   return false
-    # else
-    #   return true
-    # end
   end
 
   def is_human?

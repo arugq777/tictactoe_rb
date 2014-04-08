@@ -1,0 +1,32 @@
+html {
+  padding: 0;
+  margin:  0;
+  border:  0;
+}
+.board { 
+  padding-bottom: 0;
+  margin:  0;
+  border:  0;
+  height: 100%;
+  background: url(img/board.svg) no-repeat fixed;
+  background-size: contain;
+}
+section, table, tbody, td, tr{
+  padding: 0;
+  margin:  0;
+  border:  0;
+}
+
+table tr td img{
+  padding: 0;
+  margin:  0;
+  border:  0;
+  display:block;
+  margin-left:auto;
+  margin-right:auto;
+}
+
+.mark{
+  height:70%;
+  width:70%;
+}
