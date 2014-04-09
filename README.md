@@ -1,7 +1,7 @@
 ##About
-This is Tic Tac Toe game, somewhat clumsily written in Ruby, after banging my head against a couple different attempts at writing a minimax algorithm.
+This is a Tic Tac Toe game.
 
-To play, enter "ruby play_tictactoe.rb"
+To play, navigate to the app's directory and enter "ruby play_tictactoe.rb" on the command line, or try online at http://obscure-island-2185.herokuapp.com/
 
 ##To-Do
-Refactor. Spiff up the layout of the web version more. Resizing on the web version is wonky, as well.
+Refactor. Fix/spiff up the layout of the web version more.
