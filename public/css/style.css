@@ -1,0 +1,27 @@
+html, body, table, section, tbody, td, tr{
+  padding: 0;
+  margin:  0;
+  border:  0;
+}
+.board { 
+  height: 100%;
+  background: url(../img/board.svg) no-repeat fixed;
+  background-size: contain;
+}
+
+table tr td img{
+
+  display:block;
+  margin-left:auto;
+  margin-right:auto;
+}
+
+.mark{
+  margin: 0 auto;
+  height:70%;
+  width:70%;
+}
+
+aside{
+  float:right;
+}
