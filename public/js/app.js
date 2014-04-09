@@ -58,7 +58,7 @@ function isGameOver(){
 function getUserMove(move){
   if(isGameOver() === false){
     $.get( "/"+ move, function( data ) {
-      console.log(data);
+      //console.log(data);
       if(data.valid === true){
         markSpace(data.space, "o");
         updateInfo(data.output);
@@ -91,7 +91,7 @@ function getAIMove(){
 }
 
 function updateInfo(info){
-  console.log("update:" + info);
+  //console.log("update:" + info);
   for(i=0; i < info.length; i++){
     $("#info").append("<li>" + info[i] + "</li>");
   }
