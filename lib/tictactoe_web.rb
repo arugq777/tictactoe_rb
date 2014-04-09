@@ -24,7 +24,11 @@ class TicTacToeWeb < TicTacToe
 
   def pick_space(chosen_space)
     if @current_player.marker == :X
-      space = automatically_pick_space
+      if @turn_count == 0
+        space = [1,3,7,9].sample
+      else
+        space = automatically_pick_space
+      end
     else
       space = chosen_space
     end
